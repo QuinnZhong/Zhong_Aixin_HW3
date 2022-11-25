@@ -1,35 +1,53 @@
-import { SendMail } from "./components/mailer.js";
 
-(() => {
-    const { createApp } = Vue
-
-    createApp({
-        data() {
-            return {
-                message: 'Hello Vue!'
-            }
-        },
-
-        methods: {
-            processMailFailure(result) {
-                // show a failure message in the UI
-                // use this.$refs to connect to the elements on the page and mark any empty fields/inputs with an error class
-                alert('failure! and if you keep using an alert, DOUBLE failure!');        
-                // show some errors in the UI here to let the user know the mail attempt was successful
-            },
-
-            processMailSuccess(result) {
-                // show a success message in the UI
-                alert("success! but don't EVER use alerts. They are gross.");        
-                // show some UI here to let the user know the mail attempt was successful
-            },
-
-            processMail(event) {        
-                // use the SendMail component to process mail
-                SendMail(this.$el.parentNode)
-                    .then(data => this.processMailSuccess(data))
-                    .catch(err => this.processMailFailure(err));
-            }
-        }
-    }).mount('#mail-form')
-})();
+$(function() {
+  
+  $('#contactForm').submit(function(){
+    
+    var emailFilter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,10})+$/;   
+    var emailText = $(".email").val();
+    if (emailFilter.test(emailText)) {
+      $(".email").css({
+        "color" : "#609D29"
+      });
+    }
+    else {
+      $(".email").css({
+        "color" : "#CE3B46"
+      });
+    }
+    
+    var nameFilter = /^([a-zA-Z \t]{3,15})+$/;
+    var nameText = $(".name").val();
+    if (nameFilter.test(nameText)) {
+      $(".name").css({
+        "color" : "#609D29"
+      });
+    }
+    else {
+      $(".name").css({
+        "color" : "#CE3B46"
+      });
+    }
+    
+    var messageText = $(".message").val().length;
+    if (messageText > 50) {
+      $(".message").css({
+        "color" : "#609D29"
+      });
+    }
+    else {
+      $(".message").css({
+        "color" : "#CE3B46"
+      });
+    }
+    
+    if ((!emailFilter.test(emailText)) || (!nameFilter.test(nameText)) || (messageText < 50)) {
+      return false;
+    }
+    if ((emailFilter.test(emailText)) && (nameFilter.test(nameText)) && (messageText > 50)) {
+      $("#contactForm").css("display", "none");
+      $("#form").append("<h2>Message sent!</h2>");
+      return false;
+    }
+  });       
+});
