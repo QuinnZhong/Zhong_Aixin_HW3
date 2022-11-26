@@ -13,4 +13,5 @@ data to a PHP script via Fetch and the POST request. You’ll need to handle bot
 failure via the response object and changes to the UI (handle errors, update with visual cues,
 etc).
 
+[Writing Plan.pdf](https://github.com/QuinnZhong/Zhong_Aixin_HW3/files/10097089/Writing.Plan.pdf)
 
