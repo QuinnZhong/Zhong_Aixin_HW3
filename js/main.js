@@ -1,14 +1,9 @@
 (() => {
     const { createApp } = Vue
 
-  createApp({
+  // createApp({
     
-  }).mount('#app')
-
-})();
-
-
-
+  // }).mount('#app')
 $(function() {
   
   $('#contactForm').submit(function(){
@@ -61,3 +56,7 @@ $(function() {
     }
   });       
 });
+})();
+
+
+
